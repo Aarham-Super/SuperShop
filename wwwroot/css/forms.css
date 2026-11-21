@@ -1,0 +1,167 @@
+/* =========================================================
+   SUPERSHOP FORMS
+   ========================================================= */
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.ss-form-group {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.ss-form-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--ss-dark);
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.ss-form-control {
+    display: block;
+
+    width: 100%;
+
+    padding: 11px 13px;
+
+    background: white;
+
+    color: var(--ss-dark);
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius);
+
+    outline: none;
+
+    transition:
+        border-color var(--ss-transition),
+        box-shadow var(--ss-transition);
+}
+
+.ss-form-control:focus {
+    border-color:
+        var(--ss-primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+textarea.ss-form-control {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+select.ss-form-control {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+.ss-checkbox {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--ss-text);
+
+    font-size: 14px;
+}
+
+.ss-checkbox input {
+    width: 17px;
+    height: 17px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   VALIDATION
+   ========================================================= */
+
+.field-validation-error {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--ss-danger);
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+.validation-summary-errors {
+    margin-bottom: 20px;
+
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    background: var(--ss-danger-light);
+
+    color: #991b1b;
+
+    font-size: 14px;
+}
+
+.input-validation-error {
+    border-color:
+        var(--ss-danger);
+}
+
+.input-validation-error:focus {
+    border-color:
+        var(--ss-danger);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(220, 38, 38, 0.12);
+}
+
+
+/* =========================================================
+   REQUIRED MARK
+   ========================================================= */
+
+.required-mark {
+    color: var(--ss-danger);
+
+    margin-left: 3px;
+}

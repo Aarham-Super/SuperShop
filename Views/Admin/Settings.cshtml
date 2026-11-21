@@ -1,0 +1,120 @@
+@{
+ViewData["Title"] = "Store Settings";
+}
+
+<div class="shop-container">
+
+<div class="page-header">
+
+    <h1 class="page-title">
+        Store Settings
+    </h1>
+
+    <p class="page-subtitle">
+        Configure your store website and business settings.
+    </p>
+
+</div>
+
+<div class="admin-section">
+
+    <div class="ss-card">
+
+        <h2>
+            General Store Settings
+        </h2>
+
+        <p class="text-muted-custom">
+            Store configuration options will be available
+            here.
+        </p>
+
+        <div class="row g-4 mt-2">
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Store Name
+                </label>
+
+                <input type="text"
+                       class="form-control"
+                       value="SuperShop"
+                       readonly />
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Currency
+                </label>
+
+                <input type="text"
+                       class="form-control"
+                       value="AUD"
+                       readonly />
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Store Status
+                </label>
+
+                <select class="form-select"
+                        disabled>
+
+                    <option selected>
+                        Open
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Website Mode
+                </label>
+
+                <select class="form-select"
+                        disabled>
+
+                    <option selected>
+                        Demonstration / Test
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4">
+
+            <button type="button"
+                    class="ss-btn ss-btn-primary"
+                    disabled>
+                Save Settings
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="mt-4 mb-5">
+
+    <a asp-controller="Admin"
+       asp-action="Index"
+       class="ss-btn ss-btn-secondary">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</div>

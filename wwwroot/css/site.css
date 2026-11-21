@@ -1,0 +1,1251 @@
+/* ============================================================
+   SUPERSHOP - GLOBAL SITE STYLES
+   ============================================================ */
+
+/* ============================================================
+   1. GLOBAL VARIABLES
+   ============================================================ */
+
+:root {
+    --ss-primary: #111827;
+    --ss-primary-hover: #1f2937;
+    --ss-secondary: #6b7280;
+    --ss-accent: #2563eb;
+    --ss-accent-hover: #1d4ed8;
+
+    --ss-success: #198754;
+    --ss-danger: #dc3545;
+    --ss-warning: #f59e0b;
+    --ss-info: #0ea5e9;
+
+    --ss-white: #ffffff;
+    --ss-black: #000000;
+
+    --ss-bg: #f8fafc;
+    --ss-surface: #ffffff;
+    --ss-surface-soft: #f1f5f9;
+
+    --ss-border: #e5e7eb;
+    --ss-border-dark: #d1d5db;
+
+    --ss-text: #111827;
+    --ss-text-soft: #4b5563;
+    --ss-text-muted: #6b7280;
+
+    --ss-radius-sm: 6px;
+    --ss-radius: 10px;
+    --ss-radius-lg: 14px;
+
+    --ss-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --ss-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    --ss-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+    --ss-container: 1200px;
+
+    --ss-transition: 0.2s ease;
+}
+
+
+/* ============================================================
+   2. RESET / BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    background: var(--ss-bg);
+    color: var(--ss-text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: var(--ss-accent);
+    text-decoration: none;
+    transition:
+        color var(--ss-transition),
+        background-color var(--ss-transition),
+        border-color var(--ss-transition);
+}
+
+a:hover {
+    color: var(--ss-accent-hover);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    color: var(--ss-text);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+
+/* ============================================================
+   3. MAIN PAGE STRUCTURE
+   ============================================================ */
+
+main {
+    min-height: 60vh;
+}
+
+.shop-container {
+    width: min(100% - 32px, var(--ss-container));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-header {
+    margin: 0 0 28px;
+}
+
+.page-title {
+    margin: 0 0 8px;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    margin: 0;
+    color: var(--ss-text-muted);
+    font-size: 1rem;
+}
+
+
+/* ============================================================
+   4. GLOBAL TEST SHOP BANNER
+   ============================================================ */
+
+.test-shop-banner {
+    width: 100%;
+    margin: 0;
+    padding: 8px 16px;
+
+    background: #fff3cd;
+    color: #664d03;
+
+    border-bottom: 1px solid #ffecb5;
+
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+.test-shop-banner strong {
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   5. GLOBAL CARDS
+   ============================================================ */
+
+.ss-card {
+    background: var(--ss-surface);
+    border: 1px solid var(--ss-border);
+    border-radius: var(--ss-radius);
+    box-shadow: var(--ss-shadow-sm);
+}
+
+.ss-card-sm {
+    padding: 16px;
+}
+
+.ss-card-lg {
+    padding: 28px;
+}
+
+
+/* ============================================================
+   6. GLOBAL BUTTONS
+   ============================================================ */
+
+.ss-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 9px 18px;
+
+    border: 1px solid transparent;
+    border-radius: var(--ss-radius-sm);
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background-color var(--ss-transition),
+        color var(--ss-transition),
+        border-color var(--ss-transition),
+        box-shadow var(--ss-transition),
+        transform var(--ss-transition);
+}
+
+.ss-btn:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.ss-btn:active {
+    transform: translateY(0);
+}
+
+.ss-btn-primary {
+    background: var(--ss-accent);
+    color: #ffffff;
+    border-color: var(--ss-accent);
+}
+
+.ss-btn-primary:hover {
+    background: var(--ss-accent-hover);
+    color: #ffffff;
+    border-color: var(--ss-accent-hover);
+}
+
+.ss-btn-secondary {
+    background: #ffffff;
+    color: var(--ss-text);
+    border-color: var(--ss-border-dark);
+}
+
+.ss-btn-secondary:hover {
+    background: var(--ss-surface-soft);
+    color: var(--ss-text);
+}
+
+.ss-btn-success {
+    background: var(--ss-success);
+    color: #ffffff;
+    border-color: var(--ss-success);
+}
+
+.ss-btn-success:hover {
+    background: #157347;
+    color: #ffffff;
+}
+
+.ss-btn-danger {
+    background: var(--ss-danger);
+    color: #ffffff;
+    border-color: var(--ss-danger);
+}
+
+.ss-btn-danger:hover {
+    background: #bb2d3b;
+    color: #ffffff;
+}
+
+.ss-btn-warning {
+    background: var(--ss-warning);
+    color: #111827;
+    border-color: var(--ss-warning);
+}
+
+.ss-btn-dark {
+    background: var(--ss-primary);
+    color: #ffffff;
+    border-color: var(--ss-primary);
+}
+
+.ss-btn-dark:hover {
+    background: var(--ss-primary-hover);
+    color: #ffffff;
+}
+
+.ss-btn-sm {
+    min-height: 36px;
+    padding: 7px 13px;
+    font-size: 0.875rem;
+}
+
+.ss-btn-lg {
+    min-height: 48px;
+    padding: 11px 22px;
+    font-size: 1rem;
+}
+
+.ss-btn-block {
+    width: 100%;
+}
+
+
+/* ============================================================
+   7. GLOBAL FORM ELEMENTS
+   ============================================================ */
+
+.ss-form-group {
+    margin-bottom: 18px;
+}
+
+.ss-form-label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--ss-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.ss-form-control,
+.ss-form-select {
+    display: block;
+    width: 100%;
+
+    min-height: 44px;
+    padding: 9px 12px;
+
+    background: #ffffff;
+    color: var(--ss-text);
+
+    border: 1px solid var(--ss-border-dark);
+    border-radius: var(--ss-radius-sm);
+
+    outline: none;
+
+    transition:
+        border-color var(--ss-transition),
+        box-shadow var(--ss-transition);
+}
+
+.ss-form-control:focus,
+.ss-form-select:focus {
+    border-color: var(--ss-accent);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+textarea.ss-form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.ss-form-help {
+    margin-top: 5px;
+    color: var(--ss-text-muted);
+    font-size: 0.82rem;
+}
+
+.ss-form-error {
+    margin-top: 5px;
+    color: var(--ss-danger);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   8. BADGES
+   ============================================================ */
+
+.ss-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 9px;
+
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.ss-badge-primary {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.ss-badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.ss-badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.ss-badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.ss-badge-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+
+/* ============================================================
+   9. ALERTS
+   ============================================================ */
+
+.ss-alert {
+    position: relative;
+
+    margin-bottom: 20px;
+    padding: 13px 16px;
+
+    border: 1px solid transparent;
+    border-radius: var(--ss-radius);
+
+    font-size: 0.92rem;
+}
+
+.ss-alert-success {
+    background: #d1e7dd;
+    color: #0f5132;
+    border-color: #badbcc;
+}
+
+.ss-alert-danger {
+    background: #f8d7da;
+    color: #842029;
+    border-color: #f5c2c7;
+}
+
+.ss-alert-warning {
+    background: #fff3cd;
+    color: #664d03;
+    border-color: #ffecb5;
+}
+
+.ss-alert-info {
+    background: #cff4fc;
+    color: #055160;
+    border-color: #b6effb;
+}
+
+
+/* ============================================================
+   10. TABLES
+   ============================================================ */
+
+.ss-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+
+    background: #ffffff;
+
+    border: 1px solid var(--ss-border);
+    border-radius: var(--ss-radius);
+
+    box-shadow: var(--ss-shadow-sm);
+}
+
+.ss-table {
+    width: 100%;
+    margin: 0;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+}
+
+.ss-table th {
+    padding: 13px 15px;
+
+    background: #f8fafc;
+    color: #374151;
+
+    border-bottom: 1px solid var(--ss-border);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+.ss-table td {
+    padding: 13px 15px;
+
+    color: var(--ss-text-soft);
+
+    border-bottom: 1px solid var(--ss-border);
+
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.ss-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.ss-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* ============================================================
+   11. EMPTY / LOADING STATES
+   ============================================================ */
+
+.ss-empty-state {
+    padding: 60px 24px;
+
+    background: #ffffff;
+
+    border: 1px dashed var(--ss-border-dark);
+    border-radius: var(--ss-radius);
+
+    text-align: center;
+}
+
+.ss-empty-state h2,
+.ss-empty-state h3 {
+    margin-bottom: 8px;
+}
+
+.ss-empty-state p {
+    margin-bottom: 20px;
+    color: var(--ss-text-muted);
+}
+
+.ss-loading {
+    padding: 40px;
+    color: var(--ss-text-muted);
+    text-align: center;
+}
+
+
+/* ============================================================
+   12. DIVIDERS / UTILITIES
+   ============================================================ */
+
+.ss-divider {
+    width: 100%;
+    height: 1px;
+    margin: 24px 0;
+
+    background: var(--ss-border);
+}
+
+.ss-text-muted {
+    color: var(--ss-text-muted) !important;
+}
+
+.ss-text-center {
+    text-align: center !important;
+}
+
+.ss-text-right {
+    text-align: right !important;
+}
+
+.ss-hidden {
+    display: none !important;
+}
+
+.ss-flex {
+    display: flex;
+}
+
+.ss-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ss-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ss-gap-1 {
+    gap: 8px;
+}
+
+.ss-gap-2 {
+    gap: 12px;
+}
+
+.ss-gap-3 {
+    gap: 16px;
+}
+
+.ss-gap-4 {
+    gap: 24px;
+}
+
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+
+.site-footer {
+    margin-top: 60px;
+
+    background: #111827;
+    color: #d1d5db;
+}
+
+.site-footer-inner {
+    width: min(100% - 32px, var(--ss-container));
+    margin: 0 auto;
+    padding: 42px 0 20px;
+}
+
+.site-footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+
+    padding-bottom: 30px;
+}
+
+.site-footer h3,
+.site-footer h4 {
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.site-footer p {
+    color: #9ca3af;
+}
+
+.site-footer a {
+    color: #d1d5db;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+.site-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.site-footer-bottom {
+    padding-top: 18px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: #9ca3af;
+
+    font-size: 0.85rem;
+
+    text-align: center;
+}
+
+.site-footer-bottom strong {
+    color: #ffffff;
+}
+
+.footer-made-by a {
+    color: #111827;
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   14. ERROR PAGE
+   ============================================================ */
+
+.error-page {
+    min-height: 65vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 20px;
+}
+
+.error-card {
+    width: min(100%, 650px);
+
+    padding: 48px 32px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--ss-border);
+    border-radius: var(--ss-radius-lg);
+
+    box-shadow: var(--ss-shadow);
+
+    text-align: center;
+}
+
+.error-code {
+    margin-bottom: 5px;
+
+    color: var(--ss-accent);
+
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.error-icon {
+    margin: 15px 0;
+    font-size: 2.5rem;
+}
+
+.error-card h1 {
+    margin-bottom: 12px;
+}
+
+.error-message {
+    color: var(--ss-text-soft);
+    font-size: 1.05rem;
+}
+
+.error-url {
+    color: var(--ss-text-muted);
+    font-size: 0.9rem;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+/* ============================================================
+   15. ACCESS DENIED
+   ============================================================ */
+
+.access-denied-page {
+    min-height: 65vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 20px;
+}
+
+.access-denied-card {
+    width: min(100%, 600px);
+
+    padding: 42px 30px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--ss-border);
+    border-radius: var(--ss-radius-lg);
+
+    box-shadow: var(--ss-shadow);
+
+    text-align: center;
+}
+
+.access-denied-card h1 {
+    margin-bottom: 10px;
+}
+
+.access-denied-card p {
+    color: var(--ss-text-muted);
+}
+
+
+/* ============================================================
+   16. PRIVACY / DOCUMENT PAGES
+   ============================================================ */
+
+.privacy-page {
+    width: min(100% - 32px, 900px);
+    margin: 0 auto;
+    padding: 40px 0 70px;
+}
+
+.privacy-page h1 {
+    margin-bottom: 10px;
+}
+
+.privacy-page h2 {
+    margin-top: 35px;
+    margin-bottom: 12px;
+    font-size: 1.35rem;
+}
+
+.privacy-page p,
+.privacy-page li {
+    color: var(--ss-text-soft);
+}
+
+.privacy-page ul {
+    padding-left: 24px;
+}
+
+
+/* ============================================================
+   17. TOP NAVIGATION FALLBACK
+   ------------------------------------------------------------
+   navbar.css handles the detailed navbar design.
+   These rules prevent oversized logos and broken navigation
+   even if navbar.css has not loaded correctly.
+   ============================================================ */
+
+/* Main navbar container */
+
+.navbar {
+    width: 100%;
+    min-height: 64px;
+
+    padding: 0 !important;
+
+    background: #ffffff;
+    border-bottom: 1px solid var(--ss-border);
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Navbar inner wrapper */
+
+.navbar > .container,
+.navbar > .container-fluid {
+    min-height: 64px;
+}
+
+/* Brand / logo */
+
+.navbar-brand {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    height: 64px;
+
+    margin: 0 !important;
+    padding: 6px 0 !important;
+
+    color: var(--ss-text) !important;
+
+    font-size: 1.15rem;
+    font-weight: 700;
+
+    text-decoration: none !important;
+}
+
+.navbar-brand img {
+    width: auto !important;
+    height: 46px !important;
+    max-width: 180px !important;
+
+    object-fit: contain !important;
+
+    display: block !important;
+}
+
+/* If the logo is inside a custom wrapper */
+
+.navbar-logo,
+.nav-logo {
+    width: auto !important;
+    height: 46px !important;
+    max-width: 180px !important;
+
+    object-fit: contain !important;
+}
+
+
+/* Navbar links */
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.navbar-nav .nav-link {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    min-height: 64px;
+
+    padding: 0 12px !important;
+
+    color: #374151 !important;
+
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    border-bottom: 2px solid transparent;
+
+    text-decoration: none !important;
+
+    transition:
+        color var(--ss-transition),
+        background-color var(--ss-transition),
+        border-color var(--ss-transition);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--ss-accent) !important;
+    background: #f8fafc;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--ss-accent) !important;
+    border-bottom-color: var(--ss-accent);
+}
+
+
+/* Navbar dropdown */
+
+.navbar .dropdown-menu {
+    min-width: 210px;
+
+    margin-top: 6px;
+
+    padding: 7px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--ss-border);
+    border-radius: var(--ss-radius);
+
+    box-shadow: var(--ss-shadow-lg);
+}
+
+.navbar .dropdown-item {
+    padding: 9px 11px;
+
+    border-radius: 6px;
+
+    color: #374151;
+
+    font-size: 0.9rem;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    background: #f1f5f9;
+    color: var(--ss-accent);
+}
+
+
+/* Navbar search */
+
+.navbar form[role="search"] {
+    display: flex;
+    align-items: center;
+}
+
+.navbar form[role="search"] input {
+    min-width: 180px;
+    height: 40px;
+
+    border: 1px solid var(--ss-border-dark);
+    border-radius: 7px 0 0 7px;
+}
+
+.navbar form[role="search"] button {
+    height: 40px;
+
+    border-radius: 0 7px 7px 0;
+}
+
+
+/* Navbar toggler */
+
+.navbar-toggler {
+    width: 44px;
+    height: 40px;
+
+    padding: 6px;
+
+    border: 1px solid var(--ss-border-dark) !important;
+    border-radius: 7px !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+
+/* ============================================================
+   18. ADMIN PANEL FALLBACK
+   ============================================================ */
+
+.admin-panel-bar {
+    width: 100%;
+
+    background: #111827;
+    color: #ffffff;
+
+    border-bottom: 1px solid #374151;
+}
+
+.admin-panel-inner {
+    width: min(100% - 32px, var(--ss-container));
+    margin: 0 auto;
+
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.admin-panel-title {
+    margin-right: 10px;
+
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.admin-panel-bar a {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 34px;
+
+    padding: 6px 10px;
+
+    color: #d1d5db;
+
+    border-radius: 6px;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.admin-panel-bar a:hover {
+    background: #374151;
+    color: #ffffff;
+}
+
+.admin-panel-bar a.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   19. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+
+    .navbar-nav {
+        align-items: stretch;
+    }
+
+    .navbar-nav .nav-link {
+        min-height: 44px;
+    }
+
+    .navbar form[role="search"] {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .navbar form[role="search"] input {
+        width: 100%;
+    }
+
+    .admin-panel-inner {
+        flex-wrap: wrap;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    .admin-panel-title {
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    .site-footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .shop-container {
+        width: min(100% - 24px, var(--ss-container));
+    }
+
+    .page-header {
+        margin-bottom: 20px;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .ss-card-lg {
+        padding: 20px;
+    }
+
+    .error-card {
+        padding: 35px 20px;
+    }
+
+    .error-code {
+        font-size: 4rem;
+    }
+
+    .error-actions {
+        flex-direction: column;
+    }
+
+    .error-actions .ss-btn {
+        width: 100%;
+    }
+
+    .site-footer-inner {
+        width: min(100% - 24px, var(--ss-container));
+    }
+
+    .site-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .admin-panel-inner {
+        width: min(100% - 24px, var(--ss-container));
+    }
+
+    .admin-panel-bar a {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .navbar-brand img,
+    .navbar-logo,
+    .nav-logo {
+        height: 40px !important;
+        max-width: 145px !important;
+    }
+
+    .navbar-brand {
+        height: 56px;
+    }
+
+    .navbar > .container,
+    .navbar > .container-fluid {
+        min-height: 56px;
+    }
+
+    .navbar-nav .nav-link {
+        min-height: 42px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .test-shop-banner {
+        padding: 7px 10px;
+        font-size: 0.78rem;
+    }
+
+    .ss-btn {
+        width: 100%;
+    }
+
+    .admin-panel-inner {
+        gap: 3px;
+    }
+
+    .admin-panel-bar a {
+        font-size: 0.75rem;
+        padding: 6px 5px;
+    }
+}
+
+
+/* ============================================================
+   20. ACCESSIBILITY / REDUCED MOTION
+   ============================================================ */
+
+:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.35);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

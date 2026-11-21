@@ -1,0 +1,275 @@
+﻿@model IEnumerable<SuperShop.Models.Category>
+
+@{
+ViewData["Title"] = "Home";
+}
+
+<!-- ========================================================= HERO SECTION ========================================================= -->
+
+<section class="ss-home-hero">
+
+<div class="shop-container">
+
+    <div class="ss-home-hero-content">
+
+        <div class="ss-home-hero-text">
+
+            <span class="ss-home-eyebrow">
+                WELCOME TO SUPERSHOP
+            </span>
+
+            <h1>
+                Shop Smart.
+                <br />
+                Shop Simple.
+            </h1>
+
+            <p>
+                Explore the SuperShop demonstration and browse
+                the available shop categories.
+            </p>
+
+            <div class="ss-home-hero-actions">
+
+                <a asp-controller="Products"
+                   asp-action="Index"
+                   class="ss-btn ss-btn-primary">
+                    Shop Now
+                </a>
+
+                <a asp-controller="Categories"
+                   asp-action="Index"
+                   class="ss-btn ss-btn-secondary">
+                    Browse Categories
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="ss-home-hero-visual">
+
+            <div class="ss-hero-shopping-card">
+
+                <div class="ss-hero-shopping-icon">
+                    🛍️
+                </div>
+
+                <h2>
+                    Your Shopping Journey
+                </h2>
+
+                <p>
+                    Browse products, add your favourites
+                    to your cart and enjoy a simple shopping
+                    experience.
+                </p>
+
+                <div class="ss-hero-mini-items">
+
+                    <div>
+                        <span>✓</span>
+                        Easy Shopping
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Secure Accounts
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Easy Browsing
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ========================================================= SHOPPING FEATURES ========================================================= -->
+
+<section class="ss-home-features">
+
+<div class="shop-container">
+
+    <div class="ss-home-section-heading">
+
+        <span class="ss-home-section-eyebrow">
+            WHY SHOP WITH US
+        </span>
+
+        <h2>
+            Everything You Need for Easy Shopping
+        </h2>
+
+        <p>
+            SuperShop is designed to make browsing and
+            shopping straightforward.
+        </p>
+
+    </div>
+
+
+    <div class="ss-home-feature-grid">
+
+        <div class="ss-home-feature-card">
+
+            <div class="ss-home-feature-icon">
+                🔎
+            </div>
+
+            <h3>
+                Easy Discovery
+            </h3>
+
+            <p>
+                Quickly browse products and find what
+                you're looking for.
+            </p>
+
+        </div>
+
+
+        <div class="ss-home-feature-card">
+
+            <div class="ss-home-feature-icon">
+                ❤️
+            </div>
+
+            <h3>
+                Wishlist
+            </h3>
+
+            <p>
+                Save products you love and come back
+                to them whenever you're ready.
+            </p>
+
+        </div>
+
+
+        <div class="ss-home-feature-card">
+
+            <div class="ss-home-feature-icon">
+                🛒
+            </div>
+
+            <h3>
+                Shopping Cart
+            </h3>
+
+            <p>
+                Keep your selected products together
+                before completing your purchase.
+            </p>
+
+        </div>
+
+
+        <div class="ss-home-feature-card">
+
+            <div class="ss-home-feature-icon">
+                📦
+            </div>
+
+            <h3>
+                Order Tracking
+            </h3>
+
+            <p>
+                Keep track of your orders and review
+                your previous purchases.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ========================================================= SHOP CATEGORIES ========================================================= -->
+
+<section class="ss-home-categories">
+
+<div class="shop-container">
+
+    <div class="ss-home-section-heading">
+
+        <span class="ss-home-section-eyebrow">
+            EXPLORE
+        </span>
+
+        <h2>
+            Shop by Category
+        </h2>
+
+        <p>
+            Explore our product categories and discover
+            something new.
+        </p>
+
+    </div>
+
+
+    <div class="ss-home-category-grid">
+        <a asp-controller="Products" asp-action="Index" class="ss-home-category-card">
+            <div class="ss-home-category-icon">🛍️</div>
+            <div><h3>All</h3><p>Browse all available products.</p></div>
+        </a>
+
+        @foreach (var category in Model)
+        {
+            <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="ss-home-category-card">
+                <div class="ss-home-category-icon">📂</div>
+                <div><h3>@category.Name</h3><p>@(string.IsNullOrWhiteSpace(category.Description) ? $"Browse {category.Name} products." : category.Description)</p></div>
+            </a>
+        }
+    </div>
+
+</div>
+
+</section>
+
+<!-- ========================================================= TEST SHOP INFORMATION ========================================================= -->
+
+<section class="ss-home-test-section">
+
+<div class="shop-container">
+
+    <div class="ss-home-test-card">
+
+        <div class="ss-home-test-icon">
+            ℹ️
+        </div>
+
+        <div>
+
+            <h2>
+                Test & Demonstration Website
+            </h2>
+
+            <p>
+                SuperShop is an e-commerce practice and
+                demonstration website. No real payments
+                are processed and no real money is charged.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+

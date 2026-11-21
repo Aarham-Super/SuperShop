@@ -1,0 +1,36 @@
+@model IEnumerable<SuperShop.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="shop-container">
+    <div class="page-header">
+        <h1 class="page-title">Categories</h1>
+        <p class="page-subtitle">Choose a category to browse its products.</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="ss-card text-center">
+            <h2>No categories are available</h2>
+            <p class="text-muted-custom">The shop owner has not published any categories yet.</p>
+        </div>
+    }
+    else
+    {
+        <div class="ss-card" style="max-width: 560px;">
+            <form asp-action="Details" method="get">
+                <label for="categoryId" class="form-label">Select a category</label>
+                <select id="categoryId" name="id" class="ss-form-select" required>
+                    <option value="">Choose a category...</option>
+                    @foreach (var category in Model)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <button type="submit" class="ss-btn ss-btn-primary mt-3">Browse category</button>
+            </form>
+        </div>
+    }
+</div>

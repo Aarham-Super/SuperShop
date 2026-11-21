@@ -1,0 +1,404 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="shop-container">
+
+    <!-- =====================================================
+         ADMIN HEADER
+         ===================================================== -->
+
+    <div class="page-header">
+
+        <h1 class="page-title">
+            Dashboard
+        </h1>
+
+        <p class="page-subtitle">
+            Manage and monitor your SuperShop store.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD NOTICE
+         ===================================================== -->
+
+    <div class="admin-test-notice">
+
+        <strong>TEST / DEMONSTRATION SHOP</strong>
+
+        <p>
+            This dashboard is for managing the SuperShop
+            demonstration store. No real payments are processed.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         DASHBOARD STATISTICS
+         ===================================================== -->
+
+    <div class="admin-stats-grid">
+
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon">
+                👥
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span class="admin-stat-label">
+                    Customers
+                </span>
+
+                <strong class="admin-stat-value">
+                    @ViewBag.CustomerCount
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon">
+                🛒
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span class="admin-stat-label">
+                    Orders
+                </span>
+
+                <strong class="admin-stat-value">
+                    @ViewBag.OrderCount
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon">
+                📦
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span class="admin-stat-label">
+                    Items Sold
+                </span>
+
+                <strong class="admin-stat-value">
+                    @ViewBag.ItemsSold
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon">
+                💰
+            </div>
+
+            <div class="admin-stat-content">
+
+                <span class="admin-stat-label">
+                    Demo Sales
+                </span>
+
+                <strong class="admin-stat-value">
+                    @(((decimal)ViewBag.DemoRevenue).ToString("C"))
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MANAGEMENT
+         ===================================================== -->
+
+    <div class="admin-section">
+
+        <div class="admin-section-header">
+
+            <h2>
+                Store Management
+            </h2>
+
+            <p>
+                Manage the different parts of your SuperShop store.
+            </p>
+
+        </div>
+
+
+        <div class="admin-management-grid">
+
+            <!-- PRODUCTS -->
+
+            <a asp-controller="Admin"
+               asp-action="Products"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    🛍️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Products
+                    </h3>
+
+                    <p>
+                        Add, edit, remove and manage products.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- CATEGORIES -->
+
+            <a asp-controller="Admin"
+               asp-action="Categories"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    🗂️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Categories
+                    </h3>
+
+                    <p>
+                        Manage product categories.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- INVENTORY -->
+
+            <a asp-controller="Admin"
+               asp-action="Inventory"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    📦
+                </div>
+
+                <div>
+
+                    <h3>
+                        Inventory
+                    </h3>
+
+                    <p>
+                        Monitor stock and inventory levels.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- ORDERS -->
+
+            <a asp-controller="Admin"
+               asp-action="Orders"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    🧾
+                </div>
+
+                <div>
+
+                    <h3>
+                        Orders
+                    </h3>
+
+                    <p>
+                        View and manage customer orders.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- CUSTOMERS -->
+
+            <a asp-controller="Admin"
+               asp-action="Customers"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <h3>
+                        Customers
+                    </h3>
+
+                    <p>
+                        View registered customer accounts.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- REVIEWS -->
+
+            <a asp-controller="Admin"
+               asp-action="Reviews"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    ⭐
+                </div>
+
+                <div>
+
+                    <h3>
+                        Reviews
+                    </h3>
+
+                    <p>
+                        Manage customer product reviews.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- PROMOTIONS -->
+
+            <a asp-controller="Admin"
+               asp-action="Promotions"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    🏷️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Promotions
+                    </h3>
+
+                    <p>
+                        Manage discounts and promotional campaigns.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a asp-controller="Admin"
+               asp-action="Settings"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">
+                    ⚙️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Store Settings
+                    </h3>
+
+                    <p>
+                        Configure your SuperShop website.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- WEBSITE BANNER -->
+
+            <a asp-controller="Admin"
+               asp-action="Banner"
+               class="admin-management-card">
+
+                <div class="admin-management-icon">📣</div>
+
+                <div>
+                    <h3>Website Banner</h3>
+                    <p>Change the message shown across the website.</p>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         QUICK INFORMATION
+         ===================================================== -->
+
+    <div class="admin-section">
+
+        <div class="admin-section-header">
+
+            <h2>
+                Store Overview
+            </h2>
+
+        </div>
+
+        <div class="ss-card">
+
+            <p>
+                Your SuperShop administration system is ready.
+            </p>
+
+            <p class="text-muted-custom">
+                Products, categories, inventory and the website banner
+                are managed from this panel. Orders, payments and reviews
+                are not enabled in this demonstration site.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+

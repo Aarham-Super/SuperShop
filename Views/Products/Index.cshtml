@@ -1,0 +1,90 @@
+@model IEnumerable<SuperShop.Models.Product>
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="shop-container">
+    <div class="page-header">
+        <h1 class="page-title">Shop</h1>
+        <p class="page-subtitle">Browse the SuperShop catalogue.</p>
+    </div>
+
+    <form method="get" asp-action="Index" class="ss-card mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4"><label for="q" class="form-label">Search</label><input id="q" name="q" value="@ViewBag.Search" class="ss-form-control" placeholder="Product name or details" /></div>
+            <div class="col-md-2"><label for="categoryId" class="form-label">Category</label><select id="categoryId" name="categoryId" asp-items="ViewBag.Categories" class="ss-form-control"><option value="">All categories</option></select></div>
+            <div class="col-md-2"><label for="minPrice" class="form-label">Min price</label><input id="minPrice" name="minPrice" value="@ViewBag.MinPrice" type="number" min="0" step="0.01" class="ss-form-control" /></div>
+            <div class="col-md-2"><label for="maxPrice" class="form-label">Max price</label><input id="maxPrice" name="maxPrice" value="@ViewBag.MaxPrice" type="number" min="0" step="0.01" class="ss-form-control" /></div>
+            <div class="col-md-2"><label for="color" class="form-label">Color</label><select id="color" name="color" asp-items="ViewBag.ColorOptions" class="ss-form-control"><option value="">Any color</option></select></div>
+            <div class="col-md-2"><label for="size" class="form-label">Size</label><select id="size" name="size" asp-items="ViewBag.SizeOptions" class="ss-form-control"><option value="">Any size</option></select></div>
+            <div class="col-md-3 d-flex gap-2"><button type="submit" class="ss-btn ss-btn-primary">Apply filters</button><a asp-action="Index" class="ss-btn ss-btn-secondary">All</a></div>
+        </div>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <div class="ss-card text-center">
+            <h2>No products are available</h2>
+            <p class="text-muted-custom">This demonstration shop currently has no products listed.</p>
+        </div>
+    }
+    else
+    {
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                var image = product.Images
+                    .OrderByDescending(i => i.IsPrimary)
+                    .ThenBy(i => i.DisplayOrder)
+                    .FirstOrDefault();
+
+                <article class="product-card">
+                    <a asp-action="Details" asp-route-id="@product.Id" aria-label="View @product.Name">
+                        <div class="product-card-image-wrapper">
+                            @if (image != null)
+                            {
+                                <img class="product-card-image" src="@image.ImageUrl" alt="@(image.AltText ?? product.Name)" />
+                            }
+                            else
+                            {
+                                <div class="product-card-image d-flex align-items-center justify-content-center" aria-hidden="true">📦</div>
+                            }
+                            @if (product.SalePrice.HasValue)
+                            {
+                                <span class="product-badge product-badge-sale">Sale</span>
+                            }
+                            else if (product.IsFeatured)
+                            {
+                                <span class="product-badge">Featured</span>
+                            }
+                        </div>
+                    </a>
+
+                    <div class="product-card-body">
+                        <div class="product-category">@product.Category?.Name</div>
+                        <h2 class="product-name">
+                            <a asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                        </h2>
+                        @if (!string.IsNullOrWhiteSpace(product.ShortDescription))
+                        {
+                            <p class="product-description">@product.ShortDescription</p>
+                        }
+                        <div class="product-price">
+                            @if (product.SalePrice.HasValue)
+                            {
+                                <span class="original-price">@product.Price.ToString("C")</span>
+                                <span class="discount-price">@product.SalePrice.Value.ToString("C")</span>
+                            }
+                            else
+                            {
+                                @product.Price.ToString("C")
+                            }
+                        </div>
+                        <a asp-action="Details" asp-route-id="@product.Id" class="ss-btn ss-btn-secondary ss-btn-small mt-3">View details</a>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</div>

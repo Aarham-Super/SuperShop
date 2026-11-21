@@ -1,0 +1,127 @@
+/* =========================================================
+   CUSTOMER ACCOUNT
+   ========================================================= */
+
+
+/* =========================================================
+   ACCOUNT CONTAINER
+   ========================================================= */
+
+.account-container {
+    width: 100%;
+
+    max-width: 480px;
+
+    margin: 50px auto;
+}
+
+
+/* =========================================================
+   ACCOUNT CARD
+   ========================================================= */
+
+.account-card {
+    background: white;
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius-xl);
+
+    padding: 35px;
+
+    box-shadow:
+        var(--ss-shadow-lg);
+}
+
+
+/* =========================================================
+   ACCOUNT TITLE
+   ========================================================= */
+
+.account-title {
+    color: var(--ss-dark);
+
+    font-size: 1.8rem;
+
+    font-weight: 900;
+
+    text-align: center;
+
+    margin-bottom: 8px;
+}
+
+.account-subtitle {
+    color: var(--ss-muted);
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   ACCOUNT LINKS
+   ========================================================= */
+
+.account-links {
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-card {
+    background: white;
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius-lg);
+
+    padding: 25px;
+
+    box-shadow:
+        var(--ss-shadow);
+}
+
+.profile-name {
+    color: var(--ss-dark);
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+}
+
+.profile-detail {
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid var(--ss-border);
+}
+
+.profile-detail:last-child {
+    border-bottom: none;
+}
+
+.profile-label {
+    color: var(--ss-muted);
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.profile-value {
+    color: var(--ss-dark);
+
+    font-weight: 600;
+}

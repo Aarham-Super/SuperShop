@@ -1,0 +1,116 @@
+/* =========================================================
+   SUPERSHOP ALERTS
+   ========================================================= */
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+.ss-alert {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 14px 18px;
+
+    margin-bottom: 20px;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        var(--ss-radius);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SUCCESS
+   ========================================================= */
+
+.ss-alert-success {
+    background: var(--ss-success-light);
+
+    border-color: #bbf7d0;
+
+    color: #166534;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.ss-alert-danger {
+    background: var(--ss-danger-light);
+
+    border-color: #fecaca;
+
+    color: #991b1b;
+}
+
+
+/* =========================================================
+   WARNING
+   ========================================================= */
+
+.ss-alert-warning {
+    background: var(--ss-warning-light);
+
+    border-color: #fde68a;
+
+    color: #92400e;
+}
+
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.ss-alert-info {
+    background: var(--ss-info-light);
+
+    border-color: #bae6fd;
+
+    color: #075985;
+}
+
+
+/* =========================================================
+   TEST SHOP
+   ========================================================= */
+
+.ss-alert-test {
+    background: #fff7d6;
+
+    border-color: #f5df9b;
+
+    color: #664d03;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.ss-alert-close {
+    margin-left: auto;
+
+    border: none;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-size: 18px;
+
+    opacity: 0.7;
+}
+
+.ss-alert-close:hover {
+    opacity: 1;
+}

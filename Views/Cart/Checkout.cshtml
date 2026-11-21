@@ -1,0 +1,72 @@
+@model SuperShop.ViewModels.CartPageViewModel
+
+@{
+    ViewData["Title"] = "Demo Checkout";
+}
+
+<div class="shop-container">
+    <div class="page-header">
+        <h1 class="page-title">Checkout</h1>
+        <p class="page-subtitle">Enter demo details to complete a simulated purchase.</p>
+    </div>
+
+    <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+            <div class="ss-card">
+                <h2>Demo card details</h2>
+                <p class="text-muted-custom">This is a demo only. Any 12–19 digit card number and any 3–4 digit CVC will work. These fields are never sent or saved.</p>
+                <form asp-action="CheckoutSubmit" method="post" data-demo-checkout>
+                    @Html.AntiForgeryToken()
+                    <div class="admin-form-field">
+                        <label for="cardNumber">Card number</label>
+                        <input id="cardNumber" type="text" class="ss-form-control" inputmode="numeric" autocomplete="off" maxlength="23" pattern="[0-9 ]+" required data-demo-card-number aria-describedby="cardNumberHelp" />
+                        <small id="cardNumberHelp" class="admin-form-help">Numbers only. Any demo number is accepted.</small>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-field">
+                            <label for="cvc">CVC</label>
+                            <input id="cvc" type="text" class="ss-form-control" inputmode="numeric" autocomplete="off" maxlength="4" pattern="[0-9]{3,4}" required data-demo-cvc />
+                        </div>
+                        <div class="admin-form-field">
+                            <label for="cardHolder">Card holder name</label>
+                            <input id="cardHolder" type="text" class="ss-form-control" autocomplete="off" maxlength="100" required data-demo-cardholder />
+                        </div>
+                    </div>
+                    <div class="admin-form-field">
+                        <label for="country">Country</label>
+                        <select id="country" class="ss-form-control" required data-demo-country>
+                            <option value="">Choose a country...</option>
+                            <option>Australia</option>
+                            <option>Canada</option>
+                            <option>India</option>
+                            <option>New Zealand</option>
+                            <option>United Kingdom</option>
+                            <option>United States</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-actions">
+                        <a asp-action="Index" class="ss-btn ss-btn-secondary">Back to cart</a>
+                        <button type="submit" class="ss-btn ss-btn-primary">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <aside class="col-lg-5">
+            <div class="cart-summary">
+                <h2>Your items</h2>
+                @foreach (var item in Model.Items)
+                {
+                    <div class="cart-summary-row">
+                        <span>@item.Product.Name @if (!string.IsNullOrWhiteSpace(item.Size)) { <text>(@item.Size)</text> } × @item.Quantity</span>
+                        <strong>@item.LineTotal.ToString("C")</strong>
+                    </div>
+                }
+                <div class="cart-summary-row"><span>Subtotal</span><strong>@Model.Subtotal.ToString("C")</strong></div>
+                @if (Model.PromotionPercent > 0) { <div class="cart-summary-row"><span>@Model.PromotionCode (@Model.PromotionPercent% off)</span><strong>-@Model.DiscountAmount.ToString("C")</strong></div> }
+                <div class="cart-summary-total"><span>Total</span><strong>@Model.Total.ToString("C")</strong></div>
+                <p class="text-muted-custom mt-3">Demo purchase only. No payment is processed. Card fields are cleared when you buy and are not submitted to the server.</p>
+            </div>
+        </aside>
+    </div>
+</div>

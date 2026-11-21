@@ -1,0 +1,33 @@
+Copyright (c) 2026 Aarham. All Rights Reserved.
+
+This code is public on GitHub for viewing. You are ONLY granted permission
+to copy, modify, or use this HTML, CSS, JavaScript, layout, or visual design
+if you follow ALL of the strict conditions below:
+
+1. Visible Footer Credit on Every Page
+You must display the exact text "Website Design & Code by Aarham" at the
+bottom footer of EVERY page of the website. It must link directly to the
+dedicated developer credit page (credits.html) described in Rule 3.
+
+2. Minimum Size & Readability (No Hiding)
+The footer credit must be clearly visible to all visitors. It must use a font
+size of at least 16px (or larger than standard body text), use high-contrast
+colors, and must NOT be hidden, transparent, or collapsed.
+
+3. Mandatory Dedicated Developer Page (credits.html)
+You must keep and include an intact, publicly accessible page named
+"credits.html" (or "/credits") linked from every page footer. This page must
+clearly display the original creator's information without edits:
+- Creator Name: Aarham
+- GitHub Profile: Aarham-Super /Github.com/Aarham-Super
+- Official Website: no website yet
+- Bio/Role: Web Developer & Designer
+
+4. No Minor-Edit Loopholes
+Changing a few words in the HTML, renaming CSS classes, or slightly changing
+colors does not remove the requirement to follow Rules 1, 2, and 3.
+
+5. Automatic Termination
+If you remove, alter, shrink, or hide the footer link or the credits.html page,
+your permission to use this code ends immediately, making your website an
+unauthorized copyright infringement subject to takedown.

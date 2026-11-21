@@ -1,0 +1,431 @@
+@using Microsoft.EntityFrameworkCore
+@using SuperShop.Data
+@using SuperShop.Models
+
+@inject ApplicationDbContext DbContext
+
+@{
+    var activeSiteBanner = await DbContext.SiteBanners
+        .AsNoTracking()
+        .Where(b => b.IsActive)
+        .OrderByDescending(b => b.UpdatedAt)
+        .FirstOrDefaultAsync();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - SuperShop
+    </title>
+
+    <meta name="description"
+          content="SuperShop - Shop smart. Shop simple." />
+
+    <meta name="theme-color"
+          content="#2563eb" />
+
+    <link rel="icon"
+          type="image/x-icon"
+          href="~/images/favicon.ico" />
+
+    <!-- ========================================================
+         BOOTSTRAP
+         ======================================================== -->
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <!-- ========================================================
+         GLOBAL CSS
+         ======================================================== -->
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+
+    <!-- ========================================================
+         NAVBAR CSS
+         ======================================================== -->
+
+    <link rel="stylesheet"
+          href="~/css/navbar.css"
+          asp-append-version="true" />
+
+
+    <!-- ========================================================
+         PAGE-SPECIFIC CSS
+         ======================================================== -->
+
+    <link rel="stylesheet"
+          href="~/css/home.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/products.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/cart.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/checkout.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/account.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/admin.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/forms.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/alerts.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/responsive.css"
+          asp-append-version="true" />
+
+
+    @await RenderSectionAsync(
+        "Styles",
+        required: false)
+
+</head>
+
+
+<body>
+
+    <!-- ========================================================
+         TEST SHOP NOTICE
+         ======================================================== -->
+
+    <div class="test-shop-banner">
+
+        <strong>TEST SHOP</strong>
+
+        <span>&nbsp;—&nbsp;</span>
+
+        <span>
+            This website is a demonstration e-commerce application.
+            No real payments are processed.
+        </span>
+
+    </div>
+
+    @if (activeSiteBanner != null)
+    {
+        <div class="alert alert-info text-center rounded-0 mb-0" role="status">
+            <strong>@activeSiteBanner.Title</strong>
+            <span class="ms-2">@activeSiteBanner.Message</span>
+            @if (!string.IsNullOrWhiteSpace(activeSiteBanner.ButtonText) &&
+                 !string.IsNullOrWhiteSpace(activeSiteBanner.ButtonUrl))
+            {
+                <a href="@activeSiteBanner.ButtonUrl" class="btn btn-sm btn-primary ms-2">
+                    @activeSiteBanner.ButtonText
+                </a>
+            }
+        </div>
+    }
+
+
+    <!-- ========================================================
+         MAIN NAVBAR
+         ======================================================== -->
+
+    <header class="ss-navbar">
+
+        <div class="navbar-container">
+
+
+            <!-- ==================================================
+                 BRAND
+                 ================================================== -->
+
+            <a class="navbar-brand"
+               asp-controller="Home"
+               asp-action="Index"
+               aria-label="SuperShop home">
+
+                <img src="~/images/supershop-logo.jpg"
+                     alt="SuperShop"
+                     class="navbar-logo" />
+
+                <span class="navbar-brand-text">
+                    SuperShop
+                </span>
+
+            </a>
+
+
+            <!-- ==================================================
+                 MOBILE MENU BUTTON
+                 ================================================== -->
+
+            <button type="button"
+                    class="navbar-mobile-toggle"
+                    id="navbarMobileToggle"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="navbarMenu">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+
+            <!-- ==================================================
+                 NAVIGATION MENU
+                 ================================================== -->
+
+            <div class="navbar-menu"
+                 id="navbarMenu">
+
+
+                <!-- ==================================================
+                     MAIN NAVIGATION LINKS
+                     ================================================== -->
+
+                <nav class="navbar-links"
+                     aria-label="Main navigation">
+
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       class="navbar-link">
+
+                        Home
+
+                    </a>
+
+                    <a asp-controller="Categories"
+                       asp-action="Index"
+                       class="navbar-link">
+
+                        Categories
+
+                    </a>
+
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       class="navbar-link">
+
+                        Shop
+
+                    </a>
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <a asp-controller="Admin"
+                           asp-action="Index"
+                           class="navbar-link">
+                            Admin
+                        </a>
+                    }
+
+                </nav>
+
+
+                <div class="navbar-actions">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="navbar-user-area">
+                            <a asp-controller="Account"
+                               asp-action="Profile"
+                               class="navbar-user-link"
+                               aria-label="Open account menu"
+                               aria-haspopup="true">
+                                <span class="navbar-user-icon" aria-hidden="true">👤</span>
+                                <span class="navbar-user-name">Account</span>
+                            </a>
+
+                            <div class="navbar-user-dropdown">
+                                <a asp-controller="Account"
+                                   asp-action="Profile">
+                                    My Profile
+                                </a>
+                                <a asp-controller="Account"
+                                   asp-action="Settings">
+                                    Account Settings
+                                </a>
+                                <a asp-controller="Wishlist" asp-action="Index">My Wishlist</a>
+                                <a asp-controller="Orders" asp-action="Index">My Demo Orders</a>
+
+                                <div class="navbar-dropdown-divider"></div>
+
+                                <form asp-controller="Account"
+                                      asp-action="Logout"
+                                      method="post"
+                                      class="navbar-logout-form">
+
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit">
+                                        Log out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-auth-links">
+                            <a asp-controller="Account"
+                               asp-action="Login"
+                               class="navbar-login-link">
+                                Login
+                            </a>
+                            <a asp-controller="Account"
+                               asp-action="Register"
+                               class="navbar-register-link">
+                                Register
+                            </a>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+<!-- ========================================================
+         MAIN CONTENT
+         ======================================================== -->
+
+    <main role="main">
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- ========================================================
+         FOOTER
+         ======================================================== -->
+
+    <footer class="footer text-center">
+
+        <div class="footer-container">
+
+
+            <!-- ==================================================
+                 FOOTER LINKS
+                 ================================================== -->
+
+            <div class="footer-links">
+
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+
+                    Home
+
+                </a>
+
+
+                <a asp-controller="Products"
+                   asp-action="Index">
+
+                    Shop
+
+                </a>
+
+
+                <a asp-controller="Categories"
+                   asp-action="Index">
+
+                    Categories
+
+                </a>
+
+
+                <a asp-controller="Home" asp-action="Shipping">Shipping &amp; Returns</a>
+
+                <a asp-controller="Home"
+                   asp-action="Privacy">
+
+                    Privacy
+
+                </a>
+
+            </div>
+
+
+            <!-- ==================================================
+                 FOOTER DIVIDER
+                 ================================================== -->
+
+            <div class="footer-divider">
+            </div>
+
+
+            <!-- ==================================================
+                 CREDIT
+                 ================================================== -->
+
+            <p class="footer-made-by">
+                <a href="/credits">Website Design &amp; Code by Aarham</a>
+            </p>
+
+
+            <!-- ==================================================
+                 TEST NOTICE
+                 ================================================== -->
+
+            <p class="footer-test-notice">
+
+                SuperShop is a demonstration e-commerce website.
+                No real payments are processed.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ========================================================
+         JAVASCRIPT
+         ======================================================== -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true">
+    </script>
+
+    <script src="~/js/navigation.js"
+            asp-append-version="true">
+    </script>
+
+    <script src="~/js/forms.js"
+            asp-append-version="true">
+    </script>
+
+
+    @await RenderSectionAsync(
+        "Scripts",
+        required: false)
+
+</body>
+
+</html>

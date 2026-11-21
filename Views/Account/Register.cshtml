@@ -1,0 +1,159 @@
+@model SuperShop.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="shop-container">
+
+    <div class="account-page">
+
+        <div class="account-card">
+
+            <div class="account-header">
+
+                <h1>Create Account</h1>
+
+                <p>
+                    Create your SuperShop customer account.
+                </p>
+
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+
+                    <strong>
+                        Please check the following:
+                    </strong>
+
+                    <div class="mt-2"
+                         asp-validation-summary="All">
+                    </div>
+
+                </div>
+            }
+
+            <form asp-controller="Account"
+                  asp-action="Register"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+
+                    <label asp-for="FullName"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="FullName"
+                           class="form-control"
+                           autocomplete="name"
+                           placeholder="Enter your full name" />
+
+                    <span asp-validation-for="FullName"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Username"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Username"
+                           class="form-control"
+                           autocomplete="username"
+                           placeholder="Choose a username" />
+
+                    <span asp-validation-for="Username"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Email"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Email"
+                           class="form-control"
+                           autocomplete="email"
+                           placeholder="Enter your email" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Password"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Password"
+                           class="form-control"
+                           autocomplete="new-password"
+                           placeholder="Create a password" />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="ConfirmPassword"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="ConfirmPassword"
+                           class="form-control"
+                           autocomplete="new-password"
+                           placeholder="Confirm your password" />
+
+                    <span asp-validation-for="ConfirmPassword"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <button type="submit"
+                        class="ss-btn ss-btn-primary account-submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="account-footer">
+
+                <p>
+                    Already have an account?
+
+                    <a asp-controller="Account"
+                       asp-action="Login">
+                        Login
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

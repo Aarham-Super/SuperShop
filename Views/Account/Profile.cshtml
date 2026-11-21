@@ -1,0 +1,69 @@
+@model SuperShop.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="shop-container">
+
+    <div class="page-header">
+
+        <h1 class="page-title">
+            My Profile
+        </h1>
+
+        <p class="page-subtitle">
+            Manage your SuperShop account information.
+        </p>
+
+    </div>
+
+    <div class="account-card">
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Full Name
+            </label>
+
+            <input class="form-control"
+                   value="@Model.FullName"
+                   readonly />
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Username
+            </label>
+
+            <input class="form-control"
+                   value="@Model.UserName"
+                   readonly />
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Email
+            </label>
+
+            <input class="form-control"
+                   value="@Model.Email"
+                   readonly />
+
+        </div>
+
+        <a asp-controller="Orders" asp-action="Index" class="ss-btn ss-btn-primary">My Demo Orders</a>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="ss-btn ss-btn-secondary">
+            Back to Home
+        </a>
+
+    </div>
+
+</div>

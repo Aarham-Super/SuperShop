@@ -1,0 +1,216 @@
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Product Management";
+}
+
+<div class="admin-page">
+    <div class="admin-page-header">
+        <div>
+            <h1>Product Management</h1>
+            <p>Manage your SuperShop products, prices, stock and availability.</p>
+        </div>
+
+        <div>
+            <a asp-action="AddProduct" class="ss-btn ss-btn-primary">
+                + Add Product
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="admin-alert admin-alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="admin-card">
+        <div class="admin-card-header">
+            <div>
+                <h2>Products</h2>
+                <span class="admin-muted">
+                    @Model.Count() product(s)
+                </span>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="admin-empty-state">
+                <div class="admin-empty-icon">📦</div>
+
+                <h3>No products yet</h3>
+
+                <p>
+                    Your product catalogue is currently empty.
+                    Add your first product to start building the SuperShop catalogue.
+                </p>
+
+                <a asp-action="AddProduct" class="ss-btn ss-btn-primary">
+                    + Add Your First Product
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Colors</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            var stock = product.Inventory?.StockQuantity ?? 0;
+
+                            <tr>
+                                <td>
+                                    <div class="admin-product-cell">
+                                        @{
+                                            var primaryImage = product.Images
+                                                .OrderByDescending(i => i.IsPrimary)
+                                                .ThenBy(i => i.DisplayOrder)
+                                                .FirstOrDefault();
+                                        }
+
+                                        @if (primaryImage != null)
+                                        {
+                                            <img src="@primaryImage.ImageUrl"
+                                                 alt="@product.Name"
+                                                 class="admin-product-image" />
+                                        }
+                                        else
+                                        {
+                                            <div class="admin-product-image admin-product-placeholder">
+                                                📦
+                                            </div>
+                                        }
+
+                                        <div>
+                                            <strong>@product.Name</strong>
+
+                                            @if (!string.IsNullOrWhiteSpace(product.SKU))
+                                            {
+                                                <small>SKU: @product.SKU</small>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @(product.Category?.Name ?? "Uncategorised")
+                                </td>
+                                <td>@(product.Colors.Any() ? string.Join(", ", product.Colors.Select(color => color.Name)) : "—")</td>
+
+                                <td>
+                                    @if (product.SalePrice.HasValue)
+                                    {
+                                        <strong>
+                                            @product.SalePrice.Value.ToString("C")
+                                        </strong>
+
+                                        <br />
+
+                                        <span class="admin-old-price">
+                                            @product.Price.ToString("C")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <strong>
+                                            @product.Price.ToString("C")
+                                        </strong>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (stock == 0)
+                                    {
+                                        <span class="admin-badge admin-badge-danger">
+                                            Out of Stock
+                                        </span>
+                                    }
+                                    else if (product.Inventory != null &&
+                                             stock <= product.Inventory.LowStockThreshold)
+                                    {
+                                        <span class="admin-badge admin-badge-warning">
+                                            @stock Low
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="admin-stock">
+                                            @stock
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (product.IsActive)
+                                    {
+                                        <span class="admin-badge admin-badge-success">
+                                            Active
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="admin-badge admin-badge-secondary">
+                                            Inactive
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (product.IsFeatured)
+                                    {
+                                        <span class="admin-badge admin-badge-info">
+                                            Featured
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="admin-muted">
+                                            No
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @product.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")
+                                </td>
+
+                                <td>
+                                    <div class="admin-actions">
+                                        <a asp-controller="Products"
+                                           asp-action="Details"
+                                           asp-route-id="@product.Id"
+                                           class="ss-btn ss-btn-secondary ss-btn-small">
+                                            View
+                                        </a>
+
+                                        <a asp-action="EditProduct" asp-route-id="@product.Id"
+                                           class="ss-btn ss-btn-secondary ss-btn-small">
+                                            Edit
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

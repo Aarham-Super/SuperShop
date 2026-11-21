@@ -1,0 +1,28 @@
+@model IReadOnlyList<SuperShop.Models.DemoOrder>
+@{
+    ViewData["Title"] = "My Demo Orders";
+}
+<div class="shop-container">
+    <div class="page-header"><h1 class="page-title">My Demo Orders</h1><p class="page-subtitle">Your simulated purchases. No payment was processed.</p></div>
+    @if (Model.Count == 0)
+    {
+        <div class="ss-card"><h2>No demo orders yet</h2><p>Purchases made while signed in will appear here.</p><a asp-controller="Products" asp-action="Index" class="ss-btn ss-btn-primary">Browse shop</a></div>
+    }
+    else
+    {
+        @foreach (var order in Model)
+        {
+            <section class="ss-card mb-4">
+                <div class="d-flex justify-content-between flex-wrap gap-2"><h2>Demo order #@order.Id</h2><span>@order.CreatedAt.ToLocalTime().ToString("d MMM yyyy, h:mm tt")</span></div>
+                <div class="table-responsive"><table class="table"><thead><tr><th>Product</th><th>Size</th><th>Qty</th><th>Each</th><th>Line total</th></tr></thead><tbody>
+                @foreach (var item in order.Items)
+                {
+                    <tr><td>@item.ProductName</td><td>@(item.Size ?? "—")</td><td>@item.Quantity</td><td>@item.UnitPrice.ToString("C")</td><td>@item.LineTotal.ToString("C")</td></tr>
+                }
+                </tbody></table></div>
+                @if (order.DiscountAmount > 0) { <p>Promotion @order.PromotionCode: -@order.DiscountAmount.ToString("C")</p> }
+                <p><strong>@order.ItemsSold item(s) · @order.TotalAmount.ToString("C")</strong></p>
+            </section>
+        }
+    }
+</div>

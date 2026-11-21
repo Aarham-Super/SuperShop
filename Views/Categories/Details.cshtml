@@ -1,0 +1,72 @@
+@model SuperShop.Models.Category
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="shop-container">
+    <div class="page-header">
+        <h1 class="page-title">@Model.Name</h1>
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <p class="page-subtitle">@Model.Description</p>
+        }
+    </div>
+
+    @if (!Model.Products.Any())
+    {
+        <div class="ss-card text-center">
+            <h2>No products in this category</h2>
+            <p class="text-muted-custom">There are no published products here yet.</p>
+        </div>
+    }
+    else
+    {
+        <div class="product-grid">
+            @foreach (var product in Model.Products)
+            {
+                var image = product.Images
+                    .OrderByDescending(i => i.IsPrimary)
+                    .ThenBy(i => i.DisplayOrder)
+                    .FirstOrDefault();
+
+                <article class="product-card">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" aria-label="View @product.Name">
+                        <div class="product-card-image-wrapper">
+                            @if (image != null)
+                            {
+                                <img class="product-card-image" src="@image.ImageUrl" alt="@(image.AltText ?? product.Name)" />
+                            }
+                            else
+                            {
+                                <div class="product-card-image d-flex align-items-center justify-content-center" aria-hidden="true">📦</div>
+                            }
+                        </div>
+                    </a>
+                    <div class="product-card-body">
+                        <h2 class="product-name">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                        </h2>
+                        @if (!string.IsNullOrWhiteSpace(product.ShortDescription))
+                        {
+                            <p class="product-description">@product.ShortDescription</p>
+                        }
+                        <div class="product-price">
+                            @if (product.SalePrice.HasValue)
+                            {
+                                <span class="original-price">@product.Price.ToString("C")</span>
+                                <span class="discount-price">@product.SalePrice.Value.ToString("C")</span>
+                            }
+                            else
+                            {
+                                @product.Price.ToString("C")
+                            }
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+
+    <a asp-action="Index" class="ss-btn ss-btn-secondary mt-4">Back to Categories</a>
+</div>

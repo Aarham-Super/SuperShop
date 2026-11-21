@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+<div class="error-page">
+
+    <div class="error-card">
+
+        <div class="error-code">
+            404
+        </div>
+
+        <div class="error-icon" aria-hidden="true">
+            🔍
+        </div>
+
+        <h1>
+            Page Not Found
+        </h1>
+
+        <p class="error-message">
+            Sorry, we couldn't find the page you're looking for.
+        </p>
+
+        <p class="error-url">
+            The address you entered may be incorrect,
+            or the page may have been moved or removed.
+        </p>
+
+        <div class="error-actions">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="ss-btn ss-btn-primary">
+                ← Back to Home
+            </a>
+
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="ss-btn ss-btn-secondary">
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

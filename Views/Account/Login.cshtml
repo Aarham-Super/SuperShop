@@ -1,0 +1,124 @@
+@model SuperShop.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="shop-container">
+
+    <div class="account-page">
+
+        <div class="account-card">
+
+            <div class="account-header">
+
+                <h1>Welcome Back</h1>
+
+                <p>
+                    Sign in to your SuperShop account.
+                </p>
+
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+
+                    <strong>
+                        Please check the following:
+                    </strong>
+
+                    <div class="mt-2"
+                         asp-validation-summary="All">
+                    </div>
+
+                </div>
+            }
+
+            @if (TempData["SuccessMessage"] != null) { <div class="admin-alert admin-alert-success">@TempData["SuccessMessage"]</div> }
+
+            <form asp-controller="Account"
+                  asp-action="Login"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="ReturnUrl" />
+
+                <div class="form-group">
+
+                    <label asp-for="Username"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Username"
+                           class="form-control"
+                           autocomplete="username"
+                           placeholder="Enter your username" />
+
+                    <span asp-validation-for="Username"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Password"
+                           class="form-label">
+                    </label>
+
+                    <input asp-for="Password"
+                           class="form-control"
+                           autocomplete="current-password"
+                           placeholder="Enter your password" />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="form-check mb-3">
+
+                    <input asp-for="RememberMe"
+                           class="form-check-input" />
+
+                    <label asp-for="RememberMe"
+                           class="form-check-label">
+                    </label>
+
+                </div>
+
+                <button type="submit"
+                        class="ss-btn ss-btn-primary account-submit">
+                    Login
+                </button>
+
+            </form>
+
+            <div class="account-footer">
+                <p><a asp-action="ForgotPassword">Forgot your password?</a></p>
+                <p>
+                    Don't have an account?
+
+                    <a asp-controller="Account"
+                       asp-action="Register">
+                        Create an account
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

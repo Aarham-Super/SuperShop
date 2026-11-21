@@ -1,0 +1,39 @@
+@model IReadOnlyList<SuperShop.Models.ProductReview>
+@{
+    ViewData["Title"] = "Reviews";
+}
+<div class="shop-container">
+    <div class="page-header">
+        <h1 class="page-title">Reviews</h1>
+        <p class="page-subtitle">Approve customer reviews before they appear on product pages.</p>
+    </div>
+    @if (TempData["SuccessMessage"] != null) { <div class="admin-alert admin-alert-success">@TempData["SuccessMessage"]</div> }
+    @if (TempData["ErrorMessage"] != null) { <div class="admin-alert admin-alert-danger">@TempData["ErrorMessage"]</div> }
+    @if (Model.Count == 0)
+    {
+        <div class="ss-card"><h2>No reviews yet</h2><p class="text-muted-custom">Customer submissions will appear here.</p></div>
+    }
+    else
+    {
+        <div class="admin-section"><div class="ss-card"><div class="table-responsive"><table class="table align-middle">
+            <thead><tr><th>Product</th><th>Customer</th><th>Rating</th><th>Review</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+            @foreach (var review in Model)
+            {
+                <tr>
+                    <td>@review.Product?.Name</td><td>@review.ReviewerName</td>
+                    <td aria-label="@review.Rating out of 5">@string.Concat(Enumerable.Repeat("★", review.Rating))@string.Concat(Enumerable.Repeat("☆", 5 - review.Rating))</td>
+                    <td><strong>@review.Title</strong><div>@review.Comment</div></td>
+                    <td>@review.CreatedAt.ToLocalTime().ToString("d")</td>
+                    <td>@(review.IsApproved ? "Approved" : "Pending")</td>
+                    <td><div class="d-flex gap-2">
+                        <form asp-action="ToggleReview" method="post">@Html.AntiForgeryToken()<input type="hidden" name="id" value="@review.Id" /><button class="ss-btn ss-btn-secondary" type="submit">@(review.IsApproved ? "Hide" : "Approve")</button></form>
+                        <form asp-action="DeleteReview" method="post" onsubmit="return confirm('Delete this review?');">@Html.AntiForgeryToken()<input type="hidden" name="id" value="@review.Id" /><button class="ss-btn ss-btn-secondary" type="submit">Delete</button></form>
+                    </div></td>
+                </tr>
+            }
+            </tbody>
+        </table></div></div></div>
+    }
+    <div class="mt-4 mb-5"><a asp-action="Index" class="ss-btn ss-btn-secondary">← Back to Dashboard</a></div>
+</div>

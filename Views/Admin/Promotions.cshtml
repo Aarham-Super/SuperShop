@@ -1,0 +1,37 @@
+@model IReadOnlyList<SuperShop.Models.Promotion>
+@{
+    ViewData["Title"] = "Promotions";
+    var formModel = ViewBag.NewPromotion as SuperShop.ViewModels.PromotionCreateViewModel ?? new SuperShop.ViewModels.PromotionCreateViewModel();
+}
+<div class="shop-container">
+    <div class="page-header"><h1 class="page-title">Promotions</h1><p class="page-subtitle">Create demo discount codes with an optional expiry and redemption limit.</p></div>
+    @if (TempData["SuccessMessage"] != null) { <div class="admin-alert admin-alert-success">@TempData["SuccessMessage"]</div> }
+    @if (TempData["ErrorMessage"] != null) { <div class="admin-alert admin-alert-danger">@TempData["ErrorMessage"]</div> }
+    <div class="ss-card mb-4">
+        <h2>Create promotion</h2>
+        <form asp-action="AddPromotion" method="post">@Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-danger"></div>
+            <div class="row g-3">
+                <div class="col-md-3"><label for="Code" class="form-label">Code</label><input id="Code" name="Code" value="@formModel.Code" class="ss-form-control" maxlength="32" required placeholder="WELCOME10" /></div>
+                <div class="col-md-2"><label for="DiscountPercent" class="form-label">Discount (%)</label><input id="DiscountPercent" name="DiscountPercent" value="@formModel.DiscountPercent" type="number" min="1" max="90" class="ss-form-control" required /></div>
+                <div class="col-md-3"><label for="Description" class="form-label">Description</label><input id="Description" name="Description" value="@formModel.Description" class="ss-form-control" maxlength="120" /></div>
+                <div class="col-md-2"><label for="StartsAt" class="form-label">Starts</label><input id="StartsAt" name="StartsAt" value="@formModel.StartsAt.ToString("yyyy-MM-ddTHH:mm")" type="datetime-local" class="ss-form-control" required /></div>
+                <div class="col-md-2"><label for="EndsAt" class="form-label">Ends (optional)</label><input id="EndsAt" name="EndsAt" value="@(formModel.EndsAt?.ToString("yyyy-MM-ddTHH:mm"))" type="datetime-local" class="ss-form-control" /></div>
+                <div class="col-md-3"><label for="MaxUses" class="form-label">Max redemptions (optional)</label><input id="MaxUses" name="MaxUses" value="@formModel.MaxUses" type="number" min="1" class="ss-form-control" /></div>
+            </div>
+            <button class="ss-btn ss-btn-primary mt-3" type="submit">Create promotion</button>
+        </form>
+    </div>
+    @if (Model.Count == 0) { <div class="ss-card"><h2>No promotions yet</h2><p>Create a code above for the demo checkout.</p></div> }
+    else
+    {
+        <div class="ss-card"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Code</th><th>Offer</th><th>Validity</th><th>Redemptions</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+        @foreach (var promotion in Model)
+        {
+            var expired = promotion.EndsAt.HasValue && promotion.EndsAt.Value <= DateTime.UtcNow;
+            <tr><td><strong>@promotion.Code</strong><div>@promotion.Description</div></td><td>@promotion.DiscountPercent% off</td><td>@promotion.StartsAt.ToLocalTime().ToString("d") – @(promotion.EndsAt?.ToLocalTime().ToString("d") ?? "No expiry")</td><td>@promotion.Uses / @(promotion.MaxUses?.ToString() ?? "∞")</td><td>@(promotion.IsActive && !expired ? "Active" : promotion.IsActive ? "Expired" : "Inactive")</td><td><div class="d-flex gap-2"><form asp-action="TogglePromotion" method="post">@Html.AntiForgeryToken()<input type="hidden" name="id" value="@promotion.Id" /><button class="ss-btn ss-btn-secondary" type="submit">@(promotion.IsActive ? "Deactivate" : "Activate")</button></form><form asp-action="DeletePromotion" method="post">@Html.AntiForgeryToken()<input type="hidden" name="id" value="@promotion.Id" /><button class="ss-btn ss-btn-secondary" type="submit">Delete</button></form></div></td></tr>
+        }
+        </tbody></table></div></div>
+    }
+    <div class="mt-4"><a asp-action="Index" class="ss-btn ss-btn-secondary">← Back to Dashboard</a></div>
+</div>

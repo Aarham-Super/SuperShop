@@ -1,0 +1,203 @@
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+
+
+/* =========================================================
+   CHECKOUT CARD
+   ========================================================= */
+
+.checkout-card {
+    background: white;
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius-lg);
+
+    padding: 30px;
+
+    box-shadow:
+        var(--ss-shadow);
+}
+
+.checkout-title {
+    color: var(--ss-dark);
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   TEST PAYMENT NOTICE
+   ========================================================= */
+
+.test-payment-notice {
+    background:
+        linear-gradient(
+            90deg,
+            #fff7d6,
+            #fff3cd
+        );
+
+    color: #664d03;
+
+    border:
+        1px solid #f5df9b;
+
+    border-radius:
+        var(--ss-radius);
+
+    padding: 18px;
+
+    margin-bottom: 25px;
+}
+
+.test-payment-notice strong {
+    display: block;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   PAYMENT FORM
+   ========================================================= */
+
+.payment-form {
+    max-width: 650px;
+}
+
+.payment-field {
+    margin-bottom: 20px;
+}
+
+.payment-field label {
+    display: block;
+
+    color: var(--ss-dark);
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.payment-field input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius);
+
+    outline: none;
+}
+
+.payment-field input:focus {
+    border-color:
+        var(--ss-primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================================================
+   PAYMENT SUMMARY
+   ========================================================= */
+
+.payment-summary {
+    background: #f8fafc;
+
+    border:
+        1px solid var(--ss-border);
+
+    border-radius:
+        var(--ss-radius-lg);
+
+    padding: 22px;
+}
+
+.payment-summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 8px 0;
+}
+
+.payment-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    border-top:
+        1px solid var(--ss-border);
+
+    margin-top: 10px;
+
+    padding-top: 15px;
+
+    color: var(--ss-dark);
+
+    font-size: 1.5rem;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   PAYMENT SUCCESS
+   ========================================================= */
+
+.payment-success {
+    max-width: 600px;
+
+    margin: 50px auto;
+
+    padding: 45px 30px;
+
+    background: white;
+
+    border:
+        1px solid #bbf7d0;
+
+    border-radius:
+        var(--ss-radius-xl);
+
+    text-align: center;
+
+    box-shadow:
+        var(--ss-shadow);
+}
+
+.payment-success-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--ss-success-light);
+
+    color: var(--ss-success);
+
+    font-size: 35px;
+}

@@ -1,0 +1,24 @@
+@model IReadOnlyList<SuperShop.Models.DemoOrder>
+@{
+    ViewData["Title"] = "Orders";
+    var customerLabels = ViewBag.CustomerLabels as Dictionary<string, string> ?? new Dictionary<string, string>();
+}
+<div class="shop-container">
+    <div class="page-header"><h1 class="page-title">Demo Orders</h1><p class="page-subtitle">Completed simulated purchases. No payment or fulfillment is processed.</p></div>
+    <div class="admin-test-notice"><strong>TEST / DEMONSTRATION SHOP</strong><p>These records are for shop testing only.</p></div>
+    @if (Model.Count == 0)
+    {
+        <div class="ss-card"><h2>No orders yet</h2><p>Completed demo purchases will appear here.</p></div>
+    }
+    else
+    {
+        <div class="ss-card"><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Items</th><th>Discount</th><th>Total</th></tr></thead><tbody>
+        @foreach (var order in Model)
+        {
+            <tr><td>#@order.Id</td><td>@(order.UserId != null && customerLabels.TryGetValue(order.UserId, out var label) ? label : "Guest / older order")</td><td>@order.CreatedAt.ToLocalTime().ToString("d MMM yyyy, h:mm tt")</td><td>@order.ItemsSold</td><td>@(order.PromotionCode ?? "—") @if (order.DiscountAmount > 0) { <span>(@order.DiscountAmount.ToString("C"))</span> }</td><td>@order.TotalAmount.ToString("C")</td></tr>
+            @if (order.Items.Count > 0) { <tr><td colspan="6"><details><summary>View items</summary><ul>@foreach (var item in order.Items) { <li>@item.ProductName @if (item.Size != null) { <text>(@item.Size)</text> } × @item.Quantity — @item.LineTotal.ToString("C")</li> }</ul></details></td></tr> }
+        }
+        </tbody></table></div></div>
+    }
+    <div class="mt-4"><a asp-action="Index" class="ss-btn ss-btn-secondary">← Back to Dashboard</a></div>
+</div>

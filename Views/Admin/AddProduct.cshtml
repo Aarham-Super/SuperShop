@@ -1,0 +1,470 @@
+@model SuperShop.ViewModels.AdminProductCreateViewModel
+
+@{
+    ViewData["Title"] = ViewBag.IsEdit == true ? "Edit Product" : "Add Product";
+    var existingImages = ViewBag.ExistingImages as IEnumerable<SuperShop.Models.ProductImage> ?? Enumerable.Empty<SuperShop.Models.ProductImage>();
+}
+
+<div class="admin-page">
+
+    <div class="admin-page-header">
+        <div>
+            <h1>@(ViewBag.IsEdit == true ? "Edit Product" : "Add Product")</h1>
+            <p>@(ViewBag.IsEdit == true ? "Update product details, stock and images." : "Create a new product for the SuperShop catalogue.")</p>
+        </div>
+
+        <div>
+            <a asp-action="Products" class="ss-btn ss-btn-secondary">
+                ← Back to Products
+            </a>
+        </div>
+    </div>
+
+    <form asp-action="@(ViewBag.IsEdit == true ? "EditProduct" : "AddProduct")"
+          asp-route-id="@ViewBag.ProductId"
+          method="post"
+          enctype="multipart/form-data"
+          class="admin-product-form">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="admin-alert admin-alert-danger">
+        </div>
+
+        <div class="admin-form-grid">
+
+            <!-- BASIC INFORMATION -->
+
+            <div class="admin-card admin-form-section">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Basic Information</h2>
+                        <p>Enter the main information for this product.</p>
+                    </div>
+                </div>
+
+                <div class="admin-form-field">
+                    <label asp-for="Name"></label>
+
+                    <input asp-for="Name"
+                           class="admin-form-control"
+                           placeholder="e.g. Premium Cotton T-Shirt" />
+
+                    <span asp-validation-for="Name"
+                          class="admin-validation">
+                    </span>
+                </div>
+
+                <div class="admin-form-field">
+                    <label asp-for="ShortDescription"></label>
+
+                    <textarea asp-for="ShortDescription"
+                              class="admin-form-control"
+                              rows="3"
+                              placeholder="Short product description"></textarea>
+
+                    <span asp-validation-for="ShortDescription"
+                          class="admin-validation">
+                    </span>
+                </div>
+
+                <div class="admin-form-field">
+                    <label asp-for="Description"></label>
+
+                    <textarea asp-for="Description"
+                              class="admin-form-control"
+                              rows="7"
+                              placeholder="Detailed product description"></textarea>
+
+                    <span asp-validation-for="Description" class="admin-validation"></span>
+                </div>
+
+                <div class="admin-form-field">
+                    <label>Colors (optional)</label>
+                    <p class="admin-form-help">Add one color, or use “Add another color” for more. Leave entries blank to skip them.</p>
+                    <div data-product-colors>
+                        @if (Model.Colors.Count == 0)
+                        {
+                            <div class="d-flex gap-2 mb-2" data-color-row><input name="Colors[0]" class="admin-form-control" maxlength="50" placeholder="e.g. Black" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-color>Remove</button></div>
+                        }
+                        else
+                        {
+                            @for (var colorIndex = 0; colorIndex < Model.Colors.Count; colorIndex++)
+                            {
+                                <div class="d-flex gap-2 mb-2" data-color-row><input name="Colors[@colorIndex]" value="@Model.Colors[colorIndex]" class="admin-form-control" maxlength="50" placeholder="e.g. Black" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-color>Remove</button></div>
+                            }
+                        }
+                    </div>
+                    <button type="button" class="ss-btn ss-btn-secondary" data-add-color>Add another color</button>
+                    <span asp-validation-for="Colors" class="admin-validation"></span>
+                </div>
+
+                <div class="admin-form-field mt-3">
+                        <label>Available sizes (optional)</label>
+                        <p class="admin-form-help">Add sizes customers can choose. Leave blank if the product has no size options.</p>
+                        <div data-product-sizes>
+                            @if (Model.Sizes.Count == 0)
+                            {
+                                <div class="d-flex gap-2 mb-2" data-size-row><input name="Sizes[0]" class="admin-form-control" maxlength="30" placeholder="e.g. M or 10" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-size>Remove</button></div>
+                            }
+                            else
+                            {
+                                @for (var sizeIndex = 0; sizeIndex < Model.Sizes.Count; sizeIndex++)
+                                {
+                                    <div class="d-flex gap-2 mb-2" data-size-row><input name="Sizes[@sizeIndex]" value="@Model.Sizes[sizeIndex]" class="admin-form-control" maxlength="30" placeholder="e.g. M or 10" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-size>Remove</button></div>
+                                }
+                            }
+                        </div>
+                        <button type="button" class="ss-btn ss-btn-secondary" data-add-size>Add another size</button>
+                        <span asp-validation-for="Sizes" class="admin-validation"></span>
+                </div>
+
+            </div>
+
+
+            <!-- PRICING -->
+
+            <div class="admin-card admin-form-section">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Pricing</h2>
+                        <p>Set the regular and optional sale price.</p>
+                    </div>
+                </div>
+
+                <div class="admin-form-row">
+
+                    <div class="admin-form-field">
+
+                        <label asp-for="Price"></label>
+
+                        <div class="admin-input-prefix">
+                            <span>$</span>
+
+                            <input asp-for="Price"
+                                   class="admin-form-control"
+                                   type="number"
+                                   step="0.01"
+                                   min="0"
+                                   placeholder="0.00" />
+                        </div>
+
+                        <span asp-validation-for="Price"
+                              class="admin-validation">
+                        </span>
+
+                    </div>
+
+                    <div class="admin-form-field">
+
+                        <label asp-for="SalePrice"></label>
+
+                        <div class="admin-input-prefix">
+                            <span>$</span>
+
+                            <input asp-for="SalePrice"
+                                   class="admin-form-control"
+                                   type="number"
+                                   step="0.01"
+                                   min="0"
+                                   placeholder="Optional" />
+                        </div>
+
+                        <span asp-validation-for="SalePrice"
+                              class="admin-validation">
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="admin-card admin-form-section">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Category</h2>
+                        <p>Choose the category for this product.</p>
+                    </div>
+                </div>
+
+                <div class="admin-form-field">
+
+                    <label asp-for="CategoryId"></label>
+
+                    <select asp-for="CategoryId"
+                            asp-items="ViewBag.Categories"
+                            class="admin-form-control">
+
+                        <option value="">-- Select Category --</option>
+
+                    </select>
+
+                    <span asp-validation-for="CategoryId"
+                          class="admin-validation">
+                    </span>
+
+                    <p class="admin-form-help">
+                        Categories can be managed from the Admin dashboard.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- INVENTORY -->
+
+            <div class="admin-card admin-form-section">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Inventory</h2>
+                        <p>Set the starting stock and low-stock warning level.</p>
+                    </div>
+                </div>
+
+                <div class="admin-form-row">
+
+                    <div class="admin-form-field">
+
+                        <label asp-for="StockQuantity"></label>
+
+                        <input asp-for="StockQuantity"
+                               class="admin-form-control"
+                               type="number"
+                               min="0"
+                               step="1"
+                               value="0" />
+
+                        <span asp-validation-for="StockQuantity"
+                              class="admin-validation">
+                        </span>
+
+                    </div>
+
+                    <div class="admin-form-field">
+
+                        <label asp-for="LowStockThreshold"></label>
+
+                        <input asp-for="LowStockThreshold"
+                               class="admin-form-control"
+                               type="number"
+                               min="0"
+                               step="1" />
+
+                        <span asp-validation-for="LowStockThreshold"
+                              class="admin-validation">
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SKU / STATUS -->
+
+            <div class="admin-card admin-form-section">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Product Settings</h2>
+                        <p>Configure SKU and product visibility.</p>
+                    </div>
+                </div>
+
+                <div class="admin-form-field">
+
+                    <label asp-for="SKU"></label>
+
+                    <input asp-for="SKU"
+                           class="admin-form-control"
+                           placeholder="e.g. TSHIRT-BLK-001" />
+
+                    <span asp-validation-for="SKU"
+                          class="admin-validation">
+                    </span>
+
+                    <p class="admin-form-help">
+                        SKU is optional but should be unique when provided.
+                    </p>
+
+                </div>
+
+                <div class="admin-checkbox-group">
+
+                    <label class="admin-checkbox">
+
+                        <input asp-for="IsActive" />
+
+                        <span>
+                            <strong>Active product</strong>
+                            <small>
+                                Customers can see this product in the shop.
+                            </small>
+                        </span>
+
+                    </label>
+
+                    <label class="admin-checkbox">
+
+                        <input asp-for="IsFeatured" />
+
+                        <span>
+                            <strong>Featured product</strong>
+                            <small>
+                                Mark this product as featured for the homepage.
+                            </small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- IMAGES -->
+
+            <div class="admin-card admin-form-section admin-form-full">
+
+                <div class="admin-card-header">
+                    <div>
+                        <h2>Product Images</h2>
+                        <p>
+                            Upload one or more JPG, JPEG, PNG or WebP images.
+                        </p>
+                    </div>
+                </div>
+
+                @if (existingImages.Any())
+                {
+                    <div class="admin-image-list" aria-label="Saved product images">
+                        @foreach (var image in existingImages)
+                        {
+                            <div class="admin-image-item @(Model.RemovedImageIds.Contains(image.Id) ? "is-removed" : null)" data-existing-image>
+                                <img src="@image.ImageUrl" alt="@(image.AltText ?? Model.Name)" class="admin-image-thumb" />
+                                <span class="admin-image-name">@System.IO.Path.GetFileName(image.ImageUrl)</span>
+                                <button type="button" class="admin-image-remove" data-remove-existing-image aria-label="Remove @System.IO.Path.GetFileName(image.ImageUrl)">×</button>
+                                @if (Model.RemovedImageIds.Contains(image.Id))
+                                {
+                                    <input type="hidden" name="RemovedImageIds" value="@image.Id" data-remove-image-flag />
+                                }
+                                else
+                                {
+                                    <input type="hidden" name="RemovedImageIds" value="@image.Id" disabled data-remove-image-flag />
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+                <div class="admin-upload-area" data-image-dropzone>
+
+                    <input asp-for="Images"
+                           type="file"
+                           class="admin-file-input"
+                           data-product-image-input
+                           accept=".jpg,.jpeg,.png,.webp"
+                           multiple />
+
+                    <div class="admin-upload-content">
+                        <div class="admin-upload-icon">
+                            📷
+                        </div>
+
+                        <strong>
+                            Select product images
+                        </strong>
+
+                        <span>
+                            Choose images or drag and drop them here. JPG, JPEG, PNG or WebP — maximum 5 MB per image
+                        </span>
+                    </div>
+
+                    <p class="admin-upload-status" data-image-upload-status role="status" aria-live="polite">No new images selected.</p>
+                    <div class="admin-image-list" data-new-image-list aria-label="New images to upload"></div>
+                </div>
+
+                <span asp-validation-for="Images"
+                      class="admin-validation">
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="admin-form-actions">
+
+            <a asp-action="Products"
+               class="ss-btn ss-btn-secondary">
+                Cancel
+            </a>
+
+            <button type="submit"
+                    class="ss-btn ss-btn-primary">
+                @(ViewBag.IsEdit == true ? "Save Changes" : "Save Product")
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (() => {
+            const list = document.querySelector("[data-product-colors]");
+            const add = document.querySelector("[data-add-color]");
+            if (!list || !add) return;
+            const reindex = () => list.querySelectorAll("[data-color-row] input").forEach((input, index) => {
+                input.name = `Colors[${index}]`;
+            });
+            add.addEventListener("click", () => {
+                if (list.querySelectorAll("[data-color-row]").length >= 20) return;
+                const row = document.createElement("div");
+                row.className = "d-flex gap-2 mb-2";
+                row.setAttribute("data-color-row", "");
+                row.innerHTML = '<input class="admin-form-control" maxlength="50" placeholder="e.g. Black" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-color>Remove</button>';
+                list.appendChild(row);
+                reindex();
+                row.querySelector("input").focus();
+            });
+            list.addEventListener("click", event => {
+                if (event.target.closest("[data-remove-color]")) {
+                    event.target.closest("[data-color-row]").remove();
+                    reindex();
+                }
+            });
+            const sizes = document.querySelector("[data-product-sizes]");
+            const addSize = document.querySelector("[data-add-size]");
+            const reindexSizes = () => sizes.querySelectorAll("[data-size-row] input").forEach((input, index) => { input.name = `Sizes[${index}]`; });
+            addSize?.addEventListener("click", () => {
+                if (sizes.querySelectorAll("[data-size-row]").length >= 20) return;
+                const row = document.createElement("div");
+                row.className = "d-flex gap-2 mb-2";
+                row.setAttribute("data-size-row", "");
+                row.innerHTML = '<input class="admin-form-control" maxlength="30" placeholder="e.g. M or 10" /><button type="button" class="ss-btn ss-btn-secondary" data-remove-size>Remove</button>';
+                sizes.appendChild(row); reindexSizes(); row.querySelector("input").focus();
+            });
+            sizes?.addEventListener("click", event => { if (event.target.closest("[data-remove-size]")) { event.target.closest("[data-size-row]").remove(); reindexSizes(); } });
+        })();
+    </script>
+}
+
+
+
+
